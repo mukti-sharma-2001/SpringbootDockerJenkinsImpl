@@ -63,6 +63,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>docker-jenkins-sample-implementation</finalName>
 	</build>
 	<repositories>
 		<repository>
