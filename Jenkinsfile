@@ -13,7 +13,7 @@ pipeline {
         stage('Build docker image'){
             steps{
                 script{
-                    bat 'docker build -t muktisharma/docker-jenkins-sample-implementation .'
+                    bat 'docker build -t muktisharma/docker-jenkins-sample-implementation --progress=plain --no-cache .'
                 }
             }
         }
