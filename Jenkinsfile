@@ -20,8 +20,8 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
-                   withCredentials([string(credentialsId: 'dockerpipe-id', variable: 'dockerpipe-id')]) {
-                   		bat 'docker login -u muktisharma -p ${dockerpipe-id}'
+                   	withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                   		bat 'docker login -u muktisharma -p ${dockerhubpwd}'
 					}
                    	bat 'docker push muktisharma/docker-jenkins-sample-implementation-pipeline'
                 }
