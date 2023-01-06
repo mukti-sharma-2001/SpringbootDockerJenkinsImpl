@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment{
+    	DOCKERHUB_CREDENTIALS=credentials('docker-sec-pass')
+    }
     tools{
         maven 'M3'
     }
@@ -20,12 +23,15 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
-                   	withCredentials([usernameColonPassword(credentialsId: 'docker-id', variable: 'dockerhub-pass')]) {
-                   		bat 'docker login -u muktisharma -p ${dockerhub-pass}'
-					}
+                   	bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                    	bat 'docker push muktisharma/docker-jenkins-sample-implementation-pipeline'
                 }
             }
+        }
+    }
+    post {
+        always {
+            bat 'docker logout'
         }
     }
 }
