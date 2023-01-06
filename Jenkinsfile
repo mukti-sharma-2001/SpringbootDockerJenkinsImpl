@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment{
-    	DOCKERHUB_CREDENTIALS=credentials('docker-sec-pass')
+    	DOCKERHUB_CREDENTIALS=credentials('dockerhubpass')
     }
     tools{
         maven 'M3'
@@ -23,7 +23,7 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
-                   	bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                   	bat '$DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                    	bat 'docker push muktisharma/docker-jenkins-sample-implementation-pipeline'
                 }
             }
